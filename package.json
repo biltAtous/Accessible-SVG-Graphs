@@ -1,0 +1,25 @@
+{
+  "name": "accessible-svg-graphs",
+  "version": "1.0.0",
+  "description": "Typescipt SVG powered graphs, focused on animation and accessibility.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile" : "tsc && esbuild ./index.js --minify --outfile=./index.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/biltatous/accessible-svg-graph.git"
+  },
+  "keywords": [
+    "svg",
+    "graphs",
+    "typescript"
+  ],
+  "author": "Billy Basdras",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://bitbucket.org/biltatous/accessible-svg-graph/issues"
+  },
+  "homepage": "https://bitbucket.org/biltatous/accessible-svg-graph#readme"
+}

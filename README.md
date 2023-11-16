@@ -21,7 +21,17 @@ https://5cript.com
 
 ### Installation ###
 
-Add the script to the footer of the document or defer it in the head.
+This library is meant to run on the browser. If you want to add to your SPA project use the npm method otherwise you can call the script on the head. 
+```
+npm i accessible-svg-graphs
+```
+
+You can just add the cdn of the npm package as follows (kindly specify the desired version) in the head:
+
+```
+<script>var exports = {};</script>
+<script src="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.0.1/index.min.js"></script>
+```
 
 
 ### Configuration ###
@@ -94,4 +104,4 @@ So basically you have to create a configuration object and finally instantiate t
 ```
 let accessibleScatterplot = new AccessibleSVG(configScatter);
 ```
-
+Please have a look at the complete example.

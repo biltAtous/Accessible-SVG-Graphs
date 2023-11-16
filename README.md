@@ -21,7 +21,8 @@ https://5cript.com
 
 ### Installation ###
 
-This library is meant to run on the browser. If you want to add to your SPA project use the npm method otherwise you can call the script on the head. 
+This library is meant to run on the browser. If you want to add to your SPA project use the npm method otherwise you can call the script on the head. Also you need to add the CSS to project. Copy paste in your CSS or again use the CDN.
+
 ```
 npm i accessible-svg-graphs
 ```
@@ -32,7 +33,9 @@ You can just add the cdn of the npm package as follows (kindly specify the desir
 <script>var exports = {};</script>
 <script src="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.0.1/index.min.js"></script>
 ```
-
+```
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.0.3/css/style.css">
+```
 
 ### Configuration ###
 
@@ -42,14 +45,14 @@ Below are the options you have to configure your graph.
 
 ```
 interface Options{
-    order:string, //bar
-    animation:boolean, //bar, pie, donut, scatterplot, line
-    duration:number, //bar, pie, donut, scatterplot, line
-    xAxis:any,  //scatterplot, line
-    yAxis:any,  //scatterplot, line, bar
+    order:string, //bar  asc | desc | original 
+    animation:boolean, //bar, pie, donut, scatterplot, line  
+    duration:number, //bar, pie, donut, scatterplot, line  | integer or decimal , refers to seconds
+    xAxis:any,  //scatterplot, line  | an array of values
+    yAxis:any,  //scatterplot, line, bar  | an array of values
     fontSize:number, // bar and scatterplot axis font size
-    strikeWidth:number, // line
-    radius:number //scatterplot
+    strikeWidth:number, // line  | integer or decimal, refers to pixels
+    radius:number //scatterplot | integer or decimal
 }
 interface Configuration{
     type:string,  //bar, pie, donut, scatterplot, line
@@ -104,4 +107,4 @@ So basically you have to create a configuration object and finally instantiate t
 ```
 let accessibleScatterplot = new AccessibleSVG(configScatter);
 ```
-Please have a look at the complete example.
+Please have a look at the complete example, in the example folder or visit my website https://5cript.com for a complete demo. 

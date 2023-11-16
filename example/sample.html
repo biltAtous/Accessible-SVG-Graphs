@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible SVG</title>
+<style>
+
+    .asg-reveal{
+        fill: none;
+        stroke-width: 32;
+        animation: rotate 1s ease-in-out forwards reverse;
+
+        transform: rotate(0deg) scale(1,-1);
+        transform-origin: center;
+    }
+
+    @keyframes rotate {
+        from { stroke-dasharray: 0 100;  }
+        to {stroke-dasharray: 100 0;}
+    }
+
+    .asg-pie {
+        /* width: 100px; */
+        background: white;
+        border-radius: 50%;
+        transform: rotate(-90deg);
+        border: 0.5px solid black;
+    } 
+
+    .asg-pie circle {
+        fill: none;
+        stroke-width: 32;
+        /* animation: rotate 1.5s ease-in; 
+        animation: rotate 2s reverse;
+
+        animation: rotate 2s reverse;
+        transform: rotate(-90deg);
+        transform-origin: center;   */
+    } 
+
+    #svg-bar, #svg-scatter, #svg-pie, #svg-line, #svg-donut{
+        max-width: 520px;
+    }
+
+    .asg-path {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: asg-dash 15s ease-in-out forwards;
+    }
+
+    @keyframes asg-dash {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    
+
+</style>
+</head>
+<body>
+    <h1>Accessible SVG Graphs [ASG]</h1>
+    <div id="svg-scatter">
+        <h2>Relationship between students achievement motivation and GPA</h2>
+    </div>
+    <div id="svg-bar">
+        <h2>Children color preferences</h2>
+    </div>
+    <div id="svg-pie">
+        <h2>Pie/Donut</h2>
+    </div>
+    <div id="svg-line">
+        <h2>Ethereum prices every first of the year.</h2>
+    </div>
+    <div id="svg-donut">
+        <h2>Donut Graph</h2>
+    </div>
+    
+</body>
+<script src="/js/acccessible-svg-graphs.js"></script>
+<script>
+    const configPie = 
+        {
+            title : 'This is a pie graph.',
+            description: 'It shows the different sources of meat.',
+            type: 'pie',
+            data: [
+                {
+                    percentage: 30,
+                    color: '#c7ffab',
+                    title: 'USA'
+                },
+                {
+                    percentage: 20,
+                    color: '#abd4ff',
+                    title: 'China'
+                },
+                {
+                    percentage: 5,
+                    color: '#fc3d3d',
+                    title: 'Germany'
+                },
+                {
+                    percentage: 45,
+                    color: '#fafc74',
+                    title: 'France'
+                }
+            ],
+            options:{
+                order: 'original',
+                animation: true,
+                duration: 1
+            },
+            injection: '#svg-pie'
+        }
+        
+        
+        const configBar = 
+        {
+            title : 'This is a Bar graph.',
+            description: 'This graph illustrate the color preferences for children below 10 years old. The sample size is 20 kids.',
+            type: 'bar',
+            data: [
+                {
+                    value: 8,
+                    color: '#fc3d3d',
+                    title: 'red'
+                },
+                {
+                    value: 7,
+                    color: '#abd4ff',
+                    title: 'blue'
+                },
+                {
+                    value: 5,
+                    color: '#c7ffab',
+                    title: 'green'
+                },
+                {
+                    value: 9,
+                    color: '#fafc74',
+                    title: 'yellow'
+                },
+                {
+                    value: 6,
+                    color: '#ffb9ab',
+                    title: 'pink'
+                }
+            ],
+            options: {
+                order: 'original',
+                animation: true,
+                duration: 1,
+                yAxis: [0, 2, 4, 5, 9]
+            },
+            injection: '#svg-bar'
+        } 
+
+        const configScatter = 
+        {
+            title : 'This is a scatterplot.',
+            description: 'What is the relationship between students achievement motivation and GPA?',
+            type: 'scatterplot',
+            data: [                
+                {title: "Joe", x: 2.0, y: 50, color: "#3498db"},
+                {title: "Lisa", x: 2.0, y: 48, color: "#2ecc71"},
+                {title: "Mary", x: 2.0, y: 100, color: "#e74c3c"},
+                {title: "Sam", x: 2.0, y: 12, color: "#f39c12"},
+                {title: "Deana", x: 2.3, y: 34, color: "#16a085"},
+                {title: "Sarah", x: 2.6, y: 30, color: "#c0392b"},
+                {title: "Jennifer", x: 2.6, y: 78, color: "#8e44ad"},
+                {title: "Gregory", x: 3.0, y: 87, color: "#3498db"},
+                {title: "Thomas", x: 3.1, y: 84, color: "#2ecc71"},
+                {title: "Cindy", x: 3.2, y: 75, color: "#e74c3c"},
+                {title: "Martha", x: 3.6, y: 83, color: "#f39c12"},
+                {title: "Steve", x: 3.8, y: 90, color: "#16a085"},
+                {title: "Jamell", x: 3.8, y: 84, color: "#c0392b"},
+                {title: "Tammie", x: 4.0, y: 98, color: "#8e44ad"}
+            ],
+            options: {
+                order: 'original',
+                animation: true,
+                duration: 2,
+                yAxis: [20, 40, 60, 80],
+                xAxis: [0, 1, 2.0, 2.5, 3.0, 3.5,],
+                radius: 0.8
+            },
+            injection: '#svg-scatter'
+        }
+        // const configLine = 
+        // {
+        //     title : 'This is a line graph.',
+        //     description: 'On the Y axis it has the motivation, ranging from 0 to 100. On the X axis it has the graduation grades. It hopes to draw a relationship between the motivation and the scores. In this context each dot represents the same individual.',
+        //     type: 'line',
+        //     data: [
+        //         {
+        //             x: 30,
+        //             y: 30,
+        //             color: 'green',
+        //             title: 'Thomas'
+        //         },
+        //         {
+        //             x: 15,
+        //             y: 55,
+        //             color: 'purple',
+        //             title: 'Helen'
+        //         },
+        //         {
+        //             x: 76,
+        //             y: 55,
+        //             color: 'red',
+        //             title: 'Suzana'
+        //         },
+        //         {
+        //             x: 90,
+        //             y: 78,
+        //             color: 'yellow',
+        //             title: 'Phil'
+        //         },
+        //         {
+        //             x: 82,
+        //             y: 69,
+        //             color: 'black',
+        //             title: 'Olga'
+        //         }
+        //     ],
+        //     options: {
+        //         order: 'original',
+        //         animation: true,
+        //         duration: 9,
+        //         yAxis: [ 30, 55, 78],
+        //         xAxis: [30, 76, 82]
+        //     },
+        //     injection: '#svg-line'
+        // }
+
+
+
+        const configLine = 
+        {
+            title : 'This is a line graph.',
+            description: 'On the X axis it has the years, on the Y axis it has the prices.',
+            type: 'line',
+            data: [
+                {
+                    x: 2017,
+                    y: 10
+                },
+                {
+                    x: 2018,
+                    y: 1341
+                },
+                {
+                    x: 2019,
+                    y: 152
+                },
+                {
+                    x: 2020,
+                    y: 130
+                },
+                {
+                    x: 2021,
+                    y: 690
+                },
+                {
+                    x: 2022,
+                    y: 3434
+                },
+                {
+                    x: 2023,
+                    y: 1105
+                }
+            ],
+            options: {
+                order: 'original',
+                animation: true,
+                duration: 9,
+                yAxis: [0, 1000, 2000, 3000],
+                xAxis: [17, 18, 19, 20, 21, 22, 23],
+                fontSize: 1.6,
+                strikeWidth: 0.1
+            },
+            injection: '#svg-line'
+        }
+
+
+        const configDonut = 
+        {
+            title : 'This is a Donut graph.',
+            description: 'On the Y axis it has the motivation, ranging from 0 to 100. On the X axis it has the graduation grades. It hopes to draw a relationship between the motivation and the scores. In this context each dot represents the same individual.',
+            type: 'donut',
+            data: [
+            {
+                    percentage: 30,
+                    color: '#c7ffab',
+                    title: 'USA'
+                },
+                {
+                    percentage: 20,
+                    color: '#abd4ff',
+                    title: 'China'
+                },
+                {
+                    percentage: 5,
+                    color: '#fc3d3d',
+                    title: 'Germany'
+                },
+                {
+                    percentage: 45,
+                    color: '#fafc74',
+                    title: 'France'
+                }
+            ],
+            options: {
+                order: 'original',
+                animation: true,
+                duration: 1
+            },
+            injection: '#svg-donut'
+        }
+
+
+        let accessibleP = new AccessibleSVG(configPie);
+        let accessibleB = new AccessibleSVG(configBar);
+        let accessibleS = new AccessibleSVG(configScatter);
+        let accessibleL = new AccessibleSVG(configLine);
+        let accessibleD = new AccessibleSVG(configDonut);
+
+</script>
+</html>

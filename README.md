@@ -21,6 +21,8 @@ https://5cript.com
 
 ### Installation ###
 
+Before installing, have a look at a complete demo in my website https://5cript.com/blog/accessible-svg-graphs/. Ensure that this project fits your usecase before you have to go through the installation process.
+
 This library is meant to run on the browser. If you want to add to your SPA project use the npm method otherwise you can call the script on the head. Also you need to add the CSS to project. Copy paste in your CSS or again use the CDN.
 
 ```
@@ -39,7 +41,7 @@ You can just add the cdn of the npm package as follows (kindly specify the desir
 
 ### Configuration ###
 
-Ensure to have the element you want to inject already in the page and with some min-height. The min-height will have some smooth animation with the Observer API and it will reduce the shift layout.
+Ensure to have the element you want to inject into, already in the page and with some min-height. The min-height will have some smooth animation with the Observer API and it will reduce the shift layout.
 
 You will need to create an object with the appropriate input for each graph. As well choose the type of graph.
 
@@ -143,4 +145,4 @@ Please have a look at the complete example, in the example folder or visit my we
 
 ### Release Notes ###
 
-1.1.0 - With the use of observer API, it does not load the graph when the wrapper element is observed. 
+1.1.0 - With the use of observer API, it does load the graph when the wrapper element is observed. 

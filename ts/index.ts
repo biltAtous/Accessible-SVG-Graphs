@@ -198,7 +198,9 @@ export class AccessibleSVG implements Configuration {
 
             //scale to flip and subtract the height plus the difference
             rect.setAttribute('transform', 'scale(1,-1) translate(0,-'+ String(graphHeight + (graphHeight - height)) +')');
-            rect.innerHTML =  '<animate attributeName="height" from="0" to="'+ String(height) +'" dur="'+this.options.duration+'s" fill="freeze" />';
+            if(this.options.animation){
+                rect.innerHTML =  '<animate attributeName="height" from="0" to="'+ String(height) +'" dur="'+this.options.duration+'s" fill="freeze" />';
+            }
 
             return rect;
         }

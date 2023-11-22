@@ -541,7 +541,7 @@ export class AccessibleSVG implements Configuration {
             entries.map((entry:any) => {
                 
                 if (entry.isIntersecting) {
-                    if(injectDiv && !injectDiv.querySelector('svg')){
+                    if(injectDiv && !injectDiv.querySelector('.asg-graph')){
                         injectDiv.innerHTML += svg.outerHTML;
                     }
 
@@ -551,7 +551,7 @@ export class AccessibleSVG implements Configuration {
 
         }
         const options = {
-            threshold: 0.99,
+            threshold: 0.8,
         }
 
         const observer = new IntersectionObserver(handleIntersection, options);

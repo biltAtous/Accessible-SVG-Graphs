@@ -381,14 +381,14 @@ class AccessibleSVG {
             const handleIntersection = (entries) => {
                 entries.map((entry) => {
                     if (entry.isIntersecting) {
-                        if (injectDiv && !injectDiv.querySelector('svg')) {
+                        if (injectDiv && !injectDiv.querySelector('.asg-graph')) {
                             injectDiv.innerHTML += svg.outerHTML;
                         }
                     }
                 });
             };
             const options = {
-                threshold: 0.99,
+                threshold: 0.8,
             };
             const observer = new IntersectionObserver(handleIntersection, options);
             if (targets) {

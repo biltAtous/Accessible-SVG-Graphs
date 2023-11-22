@@ -27,8 +27,7 @@ interface Configuration{
 
 //todo
 // add custom tooltip
-//add packages to npm registry
-//    preserveAspectRatio="xMidYMin meet"
+// preserveAspectRatio="xMidYMin meet"
 
 export class AccessibleSVG implements Configuration {
     type:string;
@@ -56,8 +55,7 @@ export class AccessibleSVG implements Configuration {
             this.line(this.data, this.injection);
         }
 
-
-        console.log('Accessible SVG class has been properly instantiated!');
+        // console.log('Accessible SVG class has been properly instantiated!');
 
     }
 
@@ -120,6 +118,7 @@ export class AccessibleSVG implements Configuration {
         
         //create svg
         const svg = this.createSVG(0, 0, 64, 64);
+        svg.classList.add('asg-graph');
         let offset = 0; //store somewhere the dash-offset
         
         const desc =  svg.querySelector('desc');
@@ -139,13 +138,19 @@ export class AccessibleSVG implements Configuration {
             piecesOfPie.push(circleSvg.element);
         })
         
+        svg.classList.add('asg-pie');
 
         //mask aka animation
         if(this.options.animation == true){
             let mask = makePieSlice('0', 'white', -offset + .53096491487338 ).element;
             mask.classList.add('asg-reveal');
+
             mask.style.animation = 'rotate '+ this.options.duration +'s ease-in-out forwards reverse';
+            mask.style.transform = 'rotate(0deg) scale(1,-1)';
+            mask.style.transformOrigin = 'center';
+
             piecesOfPie.push( mask ); //add brown mask
+            this.observe(this.type);
         }
     
     
@@ -154,7 +159,6 @@ export class AccessibleSVG implements Configuration {
             svg.appendChild(circle);
         })
     
-        svg.classList.add('asg-pie');
     
         //donut
         if( this.type === 'donut' ){
@@ -163,11 +167,8 @@ export class AccessibleSVG implements Configuration {
             svg.style.border = 'none';
         }
 
-        let injectDiv = document.querySelector(injection);
-        if(injectDiv){
-            injectDiv.innerHTML += svg.outerHTML;
-        }
-
+        this.addDataType(svg,this.type);
+        this.hook(injection, svg);
     }
 
     //BAR
@@ -184,6 +185,7 @@ export class AccessibleSVG implements Configuration {
         
         let offset:number = gap + leftPadding;
         const svg = this.createSVG(0, 0, width + 2*gap, graphHeight + 2*gap );     
+        svg.classList.add('asg-graph');
         
         
         const individualBar:any = (x:number, barWidth:number, height:number, color:string)=>{
@@ -196,14 +198,12 @@ export class AccessibleSVG implements Configuration {
 
             //scale to flip and subtract the height plus the difference
             rect.setAttribute('transform', 'scale(1,-1) translate(0,-'+ String(graphHeight + (graphHeight - height)) +')');
-
             rect.innerHTML =  '<animate attributeName="height" from="0" to="'+ String(height) +'" dur="'+this.options.duration+'s" fill="freeze" />';
-            
+
             return rect;
         }
         
-        
-        //OPTIONS
+        //ORDER SORT
         if(Object.keys(this.options).length !== 0){ //if object is not empty
             //sorting
             if(this.options.order){
@@ -242,7 +242,7 @@ export class AccessibleSVG implements Configuration {
             svg.appendChild(group);
             
             offset += barWidth + gap;
-
+            
         })
 
         
@@ -254,12 +254,9 @@ export class AccessibleSVG implements Configuration {
         }
         svg.appendChild(xAxis);
         svg.appendChild(yAxis);
-
-
-        let injectDiv = document.querySelector(injection);
-        if(injectDiv){
-            injectDiv.innerHTML += svg.outerHTML;
-        }
+        
+        this.addDataType(svg,this.type);
+        this.hook(injection, svg);
 
     }
 
@@ -275,6 +272,7 @@ export class AccessibleSVG implements Configuration {
         const graphHeight:number = maxYValue > maxXValue ?  width : Math.floor((maxYValue/maxXValue) * width); //kinda ratio
 
         const svg = this.createSVG(0, 0, width+gap, graphHeight + 2*gap ); 
+        svg.classList.add('asg-graph');
         
         const bubble = (x:number, y:number, originalX:number, originalY:number, radius:number, title:string, color:string)=>{
             const circle = document.createElement('circle');
@@ -330,14 +328,8 @@ export class AccessibleSVG implements Configuration {
         svg.appendChild(xAxis);
         svg.appendChild(yAxis);
 
-        let injectDiv = document.querySelector(injection);
-        if(injectDiv){
-            injectDiv.innerHTML += svg.outerHTML;
-        }
-
-
-
-
+        this.addDataType(svg,this.type);
+        this.hook(injection, svg);
     }   
 
     //LINE
@@ -356,6 +348,7 @@ export class AccessibleSVG implements Configuration {
 
 
         const svg = this.createSVG(0, 0, svgWidth+ 2*gap, svgHeight+ 2*gap);     
+        svg.classList.add('asg-graph');
         
         //sort on x points
         data.sort( (x:any, xNext:any) =>  (x.x > xNext.x) ? 1 : (x.x < xNext.x) ? -1 : 0  );
@@ -409,10 +402,8 @@ export class AccessibleSVG implements Configuration {
         svg.appendChild(xAxis);
         svg.appendChild(yAxis);
 
-        let injectDiv = document.querySelector(injection);
-        if(injectDiv){
-            injectDiv.innerHTML += svg.outerHTML;
-        }
+        this.addDataType(svg,this.type);
+        this.hook(injection, svg);
     }
 
     //generic way of creating an SVG aka HTMLElement
@@ -522,6 +513,57 @@ export class AccessibleSVG implements Configuration {
     }
 
 
+    addDataType:any = (svg:any, type:string)=>{
+        return svg.setAttribute('data-type', type);
+    }
+
+    hook:any = (injection:string, svg:HTMLElement )=>{
+        let injectDiv:any = document.querySelector(injection);
+        if(this.options.animation){
+            this.observe(injection, injectDiv, svg);
+        }else{
+            if(injectDiv){
+                injectDiv.innerHTML += svg.outerHTML;
+            }
+        }
+    }
+
+    observe:any = (target:string, injectDiv:any, svg:HTMLElement)=>{
+
+        
+        const targets = document.querySelectorAll(target);
+ 
+        const handleIntersection = (entries:any)=> {
+            
+            
+            entries.map((entry:any) => {
+                
+                if (entry.isIntersecting) {
+                    if(injectDiv && !injectDiv.querySelector('svg')){
+                        injectDiv.innerHTML += svg.outerHTML;
+                    }
+
+                }
+                
+            })
+
+        }
+        const options = {
+            threshold: 0.99,
+        }
+
+        const observer = new IntersectionObserver(handleIntersection, options);
+
+        if(targets){
+            targets.forEach((target:any)=>{
+                observer.observe(target);
+            });
+        }
+    }
+
+
+
+    
 }
 
 

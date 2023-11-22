@@ -1,12 +1,12 @@
 
-.asg-reveal{
+/* .asg-reveal{
     fill: none;
     stroke-width: 32;
     animation: rotate 1s ease-in-out forwards reverse;
 
     transform: rotate(0deg) scale(1,-1);
     transform-origin: center;
-}
+} */
 
 @keyframes rotate {
     from { stroke-dasharray: 0 100;  }
@@ -32,9 +32,6 @@
     transform-origin: center;   */
 } 
 
-#svg-bar, #svg-scatter, #svg-pie, #svg-line, #svg-donut{
-    max-width: 520px;
-}
 
 .asg-path {
     stroke-dasharray: 1000;
@@ -48,3 +45,8 @@
     }
 }
 
+/* specific for the example */
+#svg-bar, #svg-scatter, #svg-pie, #svg-line, #svg-donut{
+    max-width: 520px;
+    min-height: 400px;
+}

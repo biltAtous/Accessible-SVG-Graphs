@@ -1,10 +1,10 @@
 # accessible-svg-graphs
 
-The idea behind this project is to offer both visually appealing animations that developers desire and a high level of accessibility that large companies seek. The focus on accessibility serves as an additional layer of value, making it more inclusive. Furthermore, this solution is exceptionally lightweight, requires zero dependencies and has a user-friendly implementation.
+The idea behind this project is to offer both visually appealing animations that developers desire and a high level of accessibility that large companies seek, recognizing that increased accessibility not only fosters inclusivity but also contributes to better SEO. Furthermore, this solution is exceptionally lightweight, requires zero dependencies, and has a user-friendly implementation.
 
-Utilizing SVG, a vector graphic format that maintains quality at any scale, opens up opportunities for integrating numerous ARIA attributes and CSS properties. As everyone, including goverments, increasingly transition to digital interactions in the post-COVID era, the creation of a universally accessible web is of paramount importance.
+Utilizing SVG, a vector graphic format that maintains quality at any scale, opens up opportunities for integrating numerous ARIA attributes and CSS properties. As everyone, including governments, increasingly transitions to digital interactions in the post-COVID era, the creation of a universally accessible web is of paramount importance.
 
-This project is an effort by me, Billy Basdras, and my project at 5cript.com. I am committed to enhance and expand this project further as soon as I receive expressions of interest and valuable feedback. Your input is highly appreciated.
+This project is an effort by me, Billy Basdras, and my project at 5cript.com. I am committed to enhancing and expanding this project further as soon as I receive expressions of interest and valuable feedback. Your input is highly appreciated.
 
 Billy Basdras - Geneva, Switzerland. 
 billbasdras@yahoo.gr
@@ -39,9 +39,12 @@ You can just add the cdn of the npm package as follows (kindly specify the desir
 
 ### Configuration ###
 
+Ensure to have the element you want to inject already in the page and with some min-height. The min-height will have some smooth animation with the Observer API and it will reduce the shift layout.
+
 You will need to create an object with the appropriate input for each graph. As well choose the type of graph.
 
 Below are the options you have to configure your graph.
+
 
 ```
 interface Options{
@@ -99,6 +102,34 @@ interface Configuration{
     }
 ```
 
+### The data object for each graph type ###
+
+Pie/Donut:
+```
+    {
+        percentage: 40,
+        color: '#8B0000',
+        title: 'China'
+    }
+```
+
+Scatterplot:
+```
+ {title: "Joe", x: 2.0, y: 50, color: "#3498db"}
+
+```
+
+Line:
+```
+    //2 datapoints to make a line (x1, y1, x2, y2)
+ {
+    x: 2017,
+    y: 10
+ },
+
+```
+
+
 data found here: https://www.westga.edu/academics/research/vrc/assets/docs/scatterplots_and_correlation_notes.pdf
 
 
@@ -107,4 +138,9 @@ So basically you have to create a configuration object and finally instantiate t
 ```
 let accessibleScatterplot = new AccessibleSVG(configScatter);
 ```
-Please have a look at the complete example, in the example folder or visit my website https://5cript.com for a complete demo. 
+Please have a look at the complete example, in the example folder or visit my website https://5cript.com/blog/accessible-svg-graphs/ for a complete live demo. 
+
+
+### Release Notes ###
+
+1.1.0 - With the use of observer API, it does not load the graph when the wrapper element is observed. 

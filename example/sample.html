@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accessible SVG</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.0.3/css/style.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.0.3/css/style.css">
     <script>var exports = {};</script>
-    <script src="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.0.3/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.0.3/index.min.js"></script> -->
+    <link rel="stylesheet" href="../css/style.css">
+    <script>var exports = {};</script>
+    <script src="../index.js"></script>
 </head>
 <body>
     <h1>Accessible SVG Graphs [ASG]</h1>
-    <div id="svg-scatter">
-        <h2>Relationship between students achievement motivation and GPA</h2>
-    </div>
-    <div id="svg-bar">
-        <h2>Children color preferences</h2>
+    <div id="svg-donut">
+        <h2>Donut Graph</h2>
     </div>
     <div id="svg-pie">
         <h2>Pie/Donut</h2>
@@ -23,8 +23,11 @@
     <div id="svg-line">
         <h2>Ethereum prices every first of the year.</h2>
     </div>
-    <div id="svg-donut">
-        <h2>Donut Graph</h2>
+    <div id="svg-bar">
+        <h2>Children color preferences</h2>
+    </div>
+    <div id="svg-scatter">
+        <h2>Relationship between students achievement motivation and GPA</h2>
     </div>
     
 </body>
@@ -276,6 +279,8 @@
         let accessibleS = new AccessibleSVG(configScatter);
         let accessibleL = new AccessibleSVG(configLine);
         let accessibleD = new AccessibleSVG(configDonut);
+
+        accessibleB.observe();
 
 </script>
 </html>

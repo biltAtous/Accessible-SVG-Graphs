@@ -220,8 +220,8 @@ class AccessibleSVG {
         //LINE
         this.line = (data, injection) => {
             const valuesX = data.map((item) => item.x);
-            const maxXValue = Math.max(...valuesX);
-            const minXValue = Math.min(...valuesX);
+            // const maxXValue:number = Math.max(...valuesX);
+            // const minXValue:number = Math.min(...valuesX);
             const valuesY = data.map((item) => item.y);
             const maxYValue = Math.max(...valuesY);
             const gap = 4;

@@ -144,5 +144,5 @@ Please have a look at the complete example, in the example folder or visit my we
 
 
 ### Release Notes ###
-1.1.5 - Fixed some bug on the observer.
+1.1.5 - Fixed some bug on the observer. </br>
 1.1.0 - With the use of observer API, it does load the graph when the wrapper element is observed. 

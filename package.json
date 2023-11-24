@@ -1,6 +1,6 @@
 {
   "name": "accessible-svg-graphs",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Typescipt SVG powered graphs, focused on animation and accessibility.",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "graphs",
     "typescript",
     "accessibility",
+    "visualization",
     "javascript",
     "animation",
     "charts",

@@ -338,8 +338,8 @@ export class AccessibleSVG implements Configuration {
     line:any = (data:Array<any>, injection:string)=>{
 
         const valuesX:Array<any> = data.map((item:any) => item.x );
-        const maxXValue:number = Math.max(...valuesX);
-        const minXValue:number = Math.min(...valuesX);
+        // const maxXValue:number = Math.max(...valuesX);
+        // const minXValue:number = Math.min(...valuesX);
         const valuesY:Array<any> = data.map((item:any) => item.y );
         const maxYValue:number = Math.max(...valuesY);
         const gap:number = 4;

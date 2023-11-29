@@ -1,6 +1,6 @@
 {
   "name": "accessible-svg-graphs",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Typescipt SVG powered graphs, focused on animation and accessibility.",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,8 @@
     "javascript",
     "animation",
     "charts",
-    "data-visualization"
+    "data-visualization",
+    "data"
   ],
   "author": "Billy Basdras",
   "license": "MIT",

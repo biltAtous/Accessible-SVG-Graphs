@@ -62,7 +62,7 @@ export class AccessibleSVG implements Configuration {
 
 
     //PIE or DONUT
-    pie:any = (data:Array<any>, injection:string):void=>{
+    pie(data:Array<any>, injection:string):void {
 
         const makePieSlice:any = (percentage:number, color:string, offset:number):object =>{
 
@@ -121,7 +121,7 @@ export class AccessibleSVG implements Configuration {
         svg.classList.add('asg-graph');
         let offset = 0; //store somewhere the dash-offset
         
-        const desc =  svg.querySelector('desc');
+        const desc:any =  svg.querySelector('desc');
         desc.innerText += additionalDescription(data);
 
         const piecesOfPie:any = []; //push the circle elements
@@ -150,7 +150,6 @@ export class AccessibleSVG implements Configuration {
             mask.style.transformOrigin = 'center';
 
             piecesOfPie.push( mask ); //add brown mask
-            this.observe(this.type);
         }
     
     
@@ -172,7 +171,7 @@ export class AccessibleSVG implements Configuration {
     }
 
     //BAR
-    bar:any = (data:Array<any>, injection:string)=>{
+    bar( data:Array<any>, injection:string ):void {
         
         const numberOfBars:number = data.length;
         const gap:number = 10;
@@ -263,7 +262,7 @@ export class AccessibleSVG implements Configuration {
     }
 
     //SCATTERPLOT
-    scatterplot:any = (data:Array<any>, injection:string)=>{
+    scatterplot(data:Array<any>, injection:string):void{
 
         const valuesX:Array<any> = data.map((item:any) => item.x );
         const maxXValue:number = Math.floor(Math.max(...valuesX) * 1);
@@ -323,7 +322,7 @@ export class AccessibleSVG implements Configuration {
         }
 
         if(this.options.xAxis){
-            const g = this.xAxisValue(this.options.xAxis, graphHeight, gap, 3, null, maxXValue, width);
+            const g = this.xAxisValue(this.options.xAxis, graphHeight, gap, 3, 0, maxXValue, width);
             svg.appendChild(g);
         }
 
@@ -335,7 +334,7 @@ export class AccessibleSVG implements Configuration {
     }   
 
     //LINE
-    line:any = (data:Array<any>, injection:string)=>{
+    line(data:Array<any>, injection:string):void{
 
         const valuesX:Array<any> = data.map((item:any) => item.x );
         // const maxXValue:number = Math.max(...valuesX);
@@ -409,7 +408,7 @@ export class AccessibleSVG implements Configuration {
     }
 
     //generic way of creating an SVG aka HTMLElement
-    createSVG:any = (x:number=0, y:number=0, width:number=64, height:number=64):HTMLElement =>{
+    createSVG( x:number=0, y:number=0, width:number=64, height:number=64 ):HTMLElement{
         const svg = document.createElement('svg');
         svg.setAttribute('viewBox', x + ' ' + y + ' ' + width + ' ' + height);
         svg.setAttribute('xmlns', "http://www.w3.org/2000/svg");
@@ -435,7 +434,7 @@ export class AccessibleSVG implements Configuration {
     }
     
 
-    createGTag:any = (tabindex:boolean=true):HTMLElement=>{
+    createGTag( tabindex:boolean=true ):HTMLElement{
         const g = document.createElement('g');
         if(tabindex){
             g.setAttribute('tabindex', '0'); //tabbable
@@ -443,12 +442,12 @@ export class AccessibleSVG implements Configuration {
         return g;
     }
 
-    randomID:any = ():string=>{
+    randomID():string {
         return String(Math.floor(Math.random() * 10000));
     }
 
 
-    drawLine:any = (x1:number, y1:number, x2:number, y2:number, strokeWidth:string):HTMLElement =>{
+    drawLine( x1:number, y1:number, x2:number, y2:number, strokeWidth:string ):HTMLElement{
         const line = document.createElement('line');
         line.setAttribute('x1', String(x1));
         line.setAttribute('y1' , String(y1));
@@ -459,7 +458,7 @@ export class AccessibleSVG implements Configuration {
         return line;
     }
 
-    text:any = (inputText:string, x:number, y:number, fontsize:string):HTMLElement=>{ 
+    text( inputText:string, x:number, y:number, fontsize:string ):HTMLElement{ 
         const txt = document.createElement('text');
         txt.innerText = inputText;
         txt.setAttribute('x', String(x));
@@ -472,7 +471,7 @@ export class AccessibleSVG implements Configuration {
         
     }
 
-    doPath:any = (pathSequence:string, strikeWidth:number=3):HTMLElement =>{
+    doPath( pathSequence:string, strikeWidth:number=3 ):HTMLElement{
         const path = document.createElement('path');
         path.setAttribute('d', pathSequence);
         if( this.options.animation === true ){
@@ -485,7 +484,7 @@ export class AccessibleSVG implements Configuration {
         return path;
     }
     
-    yAxisValues:any = (yAxis:any, maxValue:number, height:number, width:number, gap:number, fontSize:number):HTMLElement =>{
+    yAxisValues( yAxis:any, maxValue:number, height:number, width:number, gap:number, fontSize:number ):HTMLElement {
         const g = this.createGTag(false);
         yAxis.forEach((y:number)=>{
             const calculateY = (  (maxValue - y) / maxValue *   ( height  ) ) + gap ;
@@ -496,7 +495,7 @@ export class AccessibleSVG implements Configuration {
         return g;
     }
 
-    xAxisValue:any = (xAxis:any, height:number, gap:number, fontSize:number, distanceBetweenXPoints=null, maxValue=null, width=null):HTMLElement => {
+    xAxisValue( xAxis:any, height:number, gap:number, fontSize:number, distanceBetweenXPoints?:number, maxValue?:number, width?:number ):HTMLElement{
         const g = this.createGTag(false);
         if(this.type === 'scatterplot' && maxValue && width){
             xAxis.forEach((x:number)=>{
@@ -515,22 +514,23 @@ export class AccessibleSVG implements Configuration {
     }
 
 
-    addDataType:any = (svg:any, type:string)=>{
+    addDataType( svg:any, type:string ):HTMLElement {
         return svg.setAttribute('data-type', type);
     }
 
-    hook:any = (injection:string, svg:HTMLElement )=>{
+    hook( injection:string, svg:HTMLElement ):void {
         let injectDiv:any = document.querySelector(injection);
-        if(this.options.animation){
-            this.observe(injection, injectDiv, svg);
+        //observe only if this.options.animation is set to true
+        if( this.options.animation ){
+            this.observe( injection, injectDiv, svg );
         }else{
-            if(injectDiv){
+            if( injectDiv ){
                 injectDiv.innerHTML += svg.outerHTML;
             }
         }
     }
 
-    observe:any = (target:string, injectDiv:any, svg:HTMLElement)=>{
+    observe( target:string, injectDiv:any, svg:HTMLElement ):void{
 
         
         const targets = document.querySelectorAll(target);
@@ -550,14 +550,14 @@ export class AccessibleSVG implements Configuration {
             })
 
         }
-        const options = {
+        const options:object = {
             threshold: 0.8,
         }
 
         const observer = new IntersectionObserver(handleIntersection, options);
 
-        if(targets){
-            targets.forEach((target:any)=>{
+        if( targets ){
+            targets.forEach( ( target:any ) =>{
                 observer.observe(target);
             });
         }

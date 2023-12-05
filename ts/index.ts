@@ -1,9 +1,9 @@
-interface SVG{
-    x:number,
-    y:number,
-    width:number,
-    height:number
-}
+// interface SVG{
+//     x:number,
+//     y:number,
+//     width:number,
+//     height:number
+// }
 
 interface Options{
     order:string,
@@ -13,7 +13,9 @@ interface Options{
     yAxis:any,
     fontSize:number,
     strikeWidth:number,
-    radius:number
+    radius:number,
+    outterColor:string,
+    innerColor:string
 }
 
 interface Configuration{
@@ -53,6 +55,8 @@ export class AccessibleSVG implements Configuration {
             this.scatterplot(this.data, this.injection);
         }else if( this.type === 'line'){
             this.line(this.data, this.injection);
+        }else if( this.type === 'progress-bar'){
+            this.progressBar(this.data, this.injection);
         }
 
         // console.log('Accessible SVG class has been properly instantiated!');
@@ -118,7 +122,6 @@ export class AccessibleSVG implements Configuration {
         
         //create svg
         const svg = this.createSVG(0, 0, 64, 64);
-        svg.classList.add('asg-graph');
         let offset = 0; //store somewhere the dash-offset
         
         const desc:any =  svg.querySelector('desc');
@@ -184,7 +187,6 @@ export class AccessibleSVG implements Configuration {
         
         let offset:number = gap + leftPadding;
         const svg = this.createSVG(0, 0, width + 2*gap, graphHeight + 2*gap );     
-        svg.classList.add('asg-graph');
         
         
         const individualBar:any = (x:number, barWidth:number, height:number, color:string)=>{
@@ -273,7 +275,6 @@ export class AccessibleSVG implements Configuration {
         const graphHeight:number = maxYValue > maxXValue ?  width : Math.floor((maxYValue/maxXValue) * width); //kinda ratio
 
         const svg = this.createSVG(0, 0, width+gap, graphHeight + 2*gap ); 
-        svg.classList.add('asg-graph');
         
         const bubble = (x:number, y:number, originalX:number, originalY:number, radius:number, title:string, color:string)=>{
             const circle = document.createElement('circle');
@@ -349,7 +350,6 @@ export class AccessibleSVG implements Configuration {
 
 
         const svg = this.createSVG(0, 0, svgWidth+ 2*gap, svgHeight+ 2*gap);     
-        svg.classList.add('asg-graph');
         
         //sort on x points
         data.sort( (x:any, xNext:any) =>  (x.x > xNext.x) ? 1 : (x.x < xNext.x) ? -1 : 0  );
@@ -407,6 +407,46 @@ export class AccessibleSVG implements Configuration {
         this.hook(injection, svg);
     }
 
+    //PROGRESS BAR
+    progressBar( data:Array<any>, injection:string ):void{
+        const percentage = data;
+        const width:number = 100;
+        const height:number = 10;
+        const svg = this.createSVG(0, 0, 100, 10); 
+
+        
+        const individualBar:any = (barWidth:number, color:string, animate:boolean)=>{
+            const rect = document.createElement('rect');
+            rect.setAttribute('x', '0');
+            rect.setAttribute('width', String(barWidth));
+            rect.setAttribute('height', String(height));
+            rect.setAttribute('y', '0');
+            rect.style.fill = color;
+
+            if(this.options.animation && this.options.duration && animate){
+                rect.innerHTML =  '<animate attributeName="width" from="0" to="'+ String(percentage) +'" dur="'+this.options.duration+'s" fill="freeze" />';
+            }
+
+            return rect;
+        }
+
+        const outter = this.createGTag(false);
+        outter.appendChild( individualBar(width, this.options.outterColor, false)  );
+        const inner = this.createGTag(true)
+        const tit = document.createElement('title');
+        tit.innerText = '70%';
+        inner.appendChild(tit);
+        inner.appendChild(individualBar(percentage, this.options.innerColor, true));
+        
+        svg.appendChild(outter);
+        svg.appendChild(inner);
+
+        this.addDataType(svg, this.type);
+        this.hook(injection, svg);
+
+
+    }
+
     //generic way of creating an SVG aka HTMLElement
     createSVG( x:number=0, y:number=0, width:number=64, height:number=64 ):HTMLElement{
         const svg = document.createElement('svg');
@@ -416,6 +456,9 @@ export class AccessibleSVG implements Configuration {
         //tabindex, 0 for focusable
         svg.setAttribute('tabindex', String(0));
         
+        //add special class to facilitate operations
+        svg.classList.add('asg-graph'); 
+
         //title 
         const title = document.createElement('title');
         title.innerText = this.title;

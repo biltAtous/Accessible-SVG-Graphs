@@ -18,6 +18,7 @@ https://5cript.com
 * bar
 * scatterplot
 * line
+* progress-bar
 
 ### Installation ###
 
@@ -58,6 +59,8 @@ interface Options{
     fontSize:number, // bar and scatterplot axis font size
     strikeWidth:number, // line  | integer or decimal, refers to pixels
     radius:number //scatterplot | integer or decimal
+    outterColor:string, //progressbar
+    innerColor:string, //progressbar
 }
 interface Configuration{
     type:string,  //bar, pie, donut, scatterplot, line
@@ -131,6 +134,13 @@ Line:
 
 ```
 
+Progress-Bar:
+
+```
+data: [70],
+
+```
+
 
 data found here: https://www.westga.edu/academics/research/vrc/assets/docs/scatterplots_and_correlation_notes.pdf
 
@@ -144,6 +154,10 @@ Please have a look at the complete example, in the example folder or visit my we
 
 
 ### Release Notes ###
+1.3.0 - Introducing the progress bar
+
+1.2.0 - Made the code more typescripty
+
 1.1.5 - Fixed some bug on the observer.   
 
 1.1.0 - With the use of observer API, it does load the graph when the wrapper element is observed. 

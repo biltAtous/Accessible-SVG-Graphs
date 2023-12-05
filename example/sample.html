@@ -17,6 +17,11 @@
     <div id="svg-donut">
         <h2>Donut Graph</h2>
     </div>
+    <div id="svg-progress">
+        <h2>Progress Bar</h2>
+        <p style="font-size: 14px;">70%</p>
+    </div>
+
     <div id="svg-pie">
         <h2>Pie/Donut</h2>
     </div>
@@ -273,12 +278,28 @@
             injection: '#svg-donut'
         }
 
+        const configProgressBar = {
+            title: 'This is a simple progress bar',
+            description: "It's basically a percentage",
+            type: 'progress-bar',
+            data: [70],
+            options: {
+                animation: true,
+                duration: 2,
+                outterColor: '#c0c2cc',
+                innerColor: '#525fff'
+            },
+            injection: '#svg-progress'
+
+        }
+
 
         let accessibleP = new AccessibleSVG(configPie);
         let accessibleB = new AccessibleSVG(configBar);
         let accessibleS = new AccessibleSVG(configScatter);
         let accessibleL = new AccessibleSVG(configLine);
         let accessibleD = new AccessibleSVG(configDonut);
+        let accessiblePro = new AccessibleSVG(configProgressBar);
 
 
 </script>

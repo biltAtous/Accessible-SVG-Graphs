@@ -154,6 +154,8 @@ Please have a look at the complete example, in the example folder or visit my we
 
 
 ### Release Notes ###
+1.3.2 - Changed the sample.html
+
 1.3.1 - Compiling with ES module now. 
 
 1.3.0 - Introducing the progress bar

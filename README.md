@@ -34,10 +34,10 @@ You can just add the cdn of the npm package as follows (kindly specify the desir
 
 ```
 <script>var exports = {};</script>
-<script src="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.0.1/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.3.1/index.min.js"></script>
 ```
 ```
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.0.3/css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.3.1/css/style.css">
 ```
 
 ### Configuration ###
@@ -154,6 +154,8 @@ Please have a look at the complete example, in the example folder or visit my we
 
 
 ### Release Notes ###
+1.3.1 - Compiling with ES module now. 
+
 1.3.0 - Introducing the progress bar
 
 1.2.0 - Made the code more typescripty

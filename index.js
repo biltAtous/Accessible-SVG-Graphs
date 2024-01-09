@@ -1,16 +1,13 @@
-"use strict";
 // interface SVG{
 //     x:number,
 //     y:number,
 //     width:number,
 //     height:number
 // }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AccessibleSVG = void 0;
 //todo
 // add custom tooltip
 // preserveAspectRatio="xMidYMin meet"
-class AccessibleSVG {
+export class AccessibleSVG {
     constructor(config) {
         this.type = config.type;
         this.title = config.title;
@@ -455,4 +452,3 @@ class AccessibleSVG {
         }
     }
 }
-exports.AccessibleSVG = AccessibleSVG;

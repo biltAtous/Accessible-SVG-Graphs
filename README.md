@@ -30,11 +30,19 @@ This library is meant to run on the browser. If you want to add to your SPA proj
 npm i accessible-svg-graphs
 ```
 
-You can just add the cdn of the npm package as follows (kindly specify the desired version) in the head:
+You can just add the cdn of the npm package as module follows (kindly specify the desired version):
 
 ```
-<script>var exports = {};</script>
-<script src="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.3.1/index.min.js"></script>
+<script type="module">
+
+import { AccessibleSVG } from "https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.3.2/index.min.js";
+
+//configuration here
+// init here
+//please look sample file
+
+</script>
+
 ```
 ```
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.3.1/css/style.css">
@@ -154,6 +162,8 @@ Please have a look at the complete example, in the example folder or visit my we
 
 
 ### Release Notes ###
+1.3.3 - Readme changes
+
 1.3.2 - Changed the sample.html
 
 1.3.1 - Compiling with ES module now. 

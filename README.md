@@ -158,10 +158,12 @@ So basically you have to create a configuration object and finally instantiate t
 ```
 let accessibleScatterplot = new AccessibleSVG(configScatter);
 ```
-Please have a look at the complete example, in the example folder or visit my website https://5cript.com/blog/accessible-svg-graphs/ for a complete live demo. 
+Please have a look at the complete example, in the example folder or visit my website https://5cript.com/products/accessible-svg-graphs/ for a complete live demo. 
 
 
 ### Release Notes ###
+1.3.4 - Changed link 
+
 1.3.3 - Readme changes
 
 1.3.2 - Changed the sample.html

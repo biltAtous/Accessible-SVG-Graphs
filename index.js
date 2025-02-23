@@ -30,6 +30,9 @@ export class AccessibleSVG {
         else if (this.type === 'progress-bar') {
             this.progressBar(this.data, this.injection);
         }
+        else if (this.type === 'area') {
+            this.area(this.data, this.injection);
+        }
         // console.log('Accessible SVG class has been properly instantiated!');
     }
     //PIE or DONUT
@@ -324,6 +327,66 @@ export class AccessibleSVG {
         this.addDataType(svg, this.type);
         this.hook(injection, svg);
     }
+    //AREA
+    area(data, injection) {
+        const valuesX = data.map((item) => item.x);
+        const valuesY = data.map((item) => item.y);
+        const maxYValue = Math.max(...valuesY);
+        const gap = 4;
+        const numberOfValues = valuesX.length;
+        const svgWidth = (numberOfValues * gap) * 2;
+        const svgHeight = svgWidth;
+        const distanceBetweenXPoints = Math.floor((svgWidth + gap) / numberOfValues);
+        const svg = this.createSVG(0, 0, svgWidth + 2 * gap, svgHeight + 2 * gap);
+        // Sort data by x value
+        data.sort((a, b) => (a.x > b.x) ? 1 : (a.x < b.x) ? -1 : 0);
+        // Build the area path.
+        // Start at the first data point.
+        const firstX = 2 * gap;
+        const firstY = svgHeight - ((data[0].y / maxYValue) * svgHeight) + gap;
+        let areaPath = `M ${Math.floor(firstX)} ${Math.floor(firstY)}`;
+        // Draw lines to each subsequent data point.
+        for (let i = 1; i < data.length; i++) {
+            const x = distanceBetweenXPoints * i + gap + gap;
+            const y = svgHeight - ((data[i].y / maxYValue) * svgHeight) + gap;
+            areaPath += ` L ${Math.floor(x)} ${Math.floor(y)}`;
+        }
+        // Close the path by drawing down to the x-axis and back to the start.
+        const lastX = distanceBetweenXPoints * (data.length - 1) + gap + gap;
+        areaPath += ` L ${Math.floor(lastX)} ${svgHeight + gap}`;
+        areaPath += ` L ${Math.floor(firstX)} ${svgHeight + gap} Z`;
+        const path = this.options.fontSize ? this.doPath(areaPath, this.options.strikeWidth) : this.doPath(areaPath);
+        path.setAttribute('fill', this.options.innerColor ? this.options.innerColor : 'lightblue');
+        if (this.options.animation) {
+            path.setAttribute('fill-opacity', '0');
+            path.innerHTML += `<animate attributeName="fill-opacity" from="0" to="0.6" dur="${this.options.duration}s" fill="freeze" />`;
+        }
+        else {
+            path.setAttribute('fill-opacity', '0.6');
+        }
+        svg.appendChild(path);
+        // Draw the axes.
+        const xAxis = this.drawLine(gap, svgHeight + gap, svgWidth + gap, svgHeight + gap, '0.2px');
+        const yAxis = this.drawLine(gap, 0, gap, svgHeight + gap, '0.2px');
+        if (this.options.yAxis) {
+            const g = this.options.fontSize ?
+                this.yAxisValues(this.options.yAxis, maxYValue, svgHeight, svgWidth, gap, this.options.fontSize)
+                :
+                    this.yAxisValues(this.options.yAxis, maxYValue, svgHeight, svgWidth, gap, 3);
+            svg.appendChild(g);
+        }
+        if (this.options.xAxis) {
+            const g = this.options.fontSize ?
+                this.xAxisValue(this.options.xAxis, svgHeight, gap, this.options.fontSize, distanceBetweenXPoints)
+                :
+                    this.xAxisValue(this.options.xAxis, svgHeight, gap, 3, distanceBetweenXPoints);
+            svg.appendChild(g);
+        }
+        svg.appendChild(xAxis);
+        svg.appendChild(yAxis);
+        this.addDataType(svg, this.type);
+        this.hook(injection, svg);
+    }
     //generic way of creating an SVG aka HTMLElement
     createSVG(x = 0, y = 0, width = 64, height = 64) {
         const svg = document.createElement('svg');
@@ -406,7 +469,7 @@ export class AccessibleSVG {
                 g.appendChild(this.drawLine(calculateX, height + gap, calculateX, gap, '0.1px'));
             });
         }
-        else if (this.type === 'line' && distanceBetweenXPoints) {
+        else if ((this.type === 'line' || this.type === 'area') && distanceBetweenXPoints) {
             xAxis.forEach((x, index) => {
                 const calculateX = index === 0 ? 2 * gap : distanceBetweenXPoints * (index) + 2 * gap;
                 g.appendChild(this.text(String(x), calculateX, height + gap + gap * 0.75, String(fontSize) + 'px'));

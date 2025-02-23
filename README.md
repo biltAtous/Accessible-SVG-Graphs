@@ -7,7 +7,7 @@ Utilizing SVG, a vector graphic format that maintains quality at any scale, open
 This project is an effort by me, Billy Basdras, and my project at 5cript.com. I am committed to enhancing and expanding this project further as soon as I receive expressions of interest and valuable feedback. Your input is highly appreciated.
 
 Billy Basdras - Geneva, Switzerland. 
-billbasdras@yahoo.gr
+info@5cript.com
 https://www.linkedin.com/in/billybasdras/
 https://5cript.com
 
@@ -19,10 +19,12 @@ https://5cript.com
 * scatterplot
 * line
 * progress-bar
+* area (similar to line but with emphasis on volume)
+
 
 ### Installation ###
 
-Before installing, have a look at a complete demo in my website https://5cript.com/blog/accessible-svg-graphs/. Ensure that this project fits your usecase before you have to go through the installation process.
+Before installing, have a look at a complete demo in my website https://5cript.com/products/accessible-svg-graphs/. Ensure that this project fits your usecase before you have to go through the installation process.
 
 This library is meant to run on the browser. If you want to add to your SPA project use the npm method otherwise you can call the script on the head. Also you need to add the CSS to project. Copy paste in your CSS or again use the CDN.
 
@@ -35,7 +37,7 @@ You can just add the cdn of the npm package as module follows (kindly specify th
 ```
 <script type="module">
 
-import { AccessibleSVG } from "https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.3.2/index.min.js";
+import { AccessibleSVG } from "https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.4.0/index.min.js";
 
 //configuration here
 // init here
@@ -45,7 +47,7 @@ import { AccessibleSVG } from "https://cdn.jsdelivr.net/npm/accessible-svg-graph
 
 ```
 ```
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.3.1/css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accessible-svg-graphs@1.4.0/css/style.css">
 ```
 
 ### Configuration ###
@@ -60,18 +62,18 @@ Below are the options you have to configure your graph.
 ```
 interface Options{
     order:string, //bar  asc | desc | original 
-    animation:boolean, //bar, pie, donut, scatterplot, line  
-    duration:number, //bar, pie, donut, scatterplot, line  | integer or decimal , refers to seconds
-    xAxis:any,  //scatterplot, line  | an array of values
+    animation:boolean, //bar, pie, donut, scatterplot, line, area  
+    duration:number, //bar, pie, donut, scatterplot, line, area  | integer or decimal , refers to seconds
+    xAxis:any,  //scatterplot, line, area  | an array of values
     yAxis:any,  //scatterplot, line, bar  | an array of values
     fontSize:number, // bar and scatterplot axis font size
-    strikeWidth:number, // line  | integer or decimal, refers to pixels
+    strikeWidth:number, // line, area  | integer or decimal, refers to pixels
     radius:number //scatterplot | integer or decimal
     outterColor:string, //progressbar
     innerColor:string, //progressbar
 }
 interface Configuration{
-    type:string,  //bar, pie, donut, scatterplot, line
+    type:string,  //bar, pie, donut, scatterplot, line, area
     title:string,
     description:string, //be descriptive of the chart and/or your dataset
     data:Array<any>, //array of objects
@@ -162,17 +164,19 @@ Please have a look at the complete example, in the example folder or visit my we
 
 
 ### Release Notes ###
-1.3.4 - Changed link 
+1.4.0 - Added area graph, very similar to line but it's own method.
 
-1.3.3 - Readme changes
+1.3.4 - Changed link.
 
-1.3.2 - Changed the sample.html
+1.3.3 - Readme changes.
+
+1.3.2 - Changed the sample.html.
 
 1.3.1 - Compiling with ES module now. 
 
-1.3.0 - Introducing the progress bar
+1.3.0 - Introducing the progress bar.
 
-1.2.0 - Made the code more typescripty
+1.2.0 - Made the code more typescripty.
 
 1.1.5 - Fixed some bug on the observer.   
 

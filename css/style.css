@@ -46,7 +46,7 @@
 }
 
 /* specific for the example */
-#svg-bar, #svg-scatter, #svg-pie, #svg-line, #svg-donut, #svg-progress{
+#svg-bar, #svg-scatter, #svg-pie, #svg-line, #svg-donut, #svg-progress, #svg-area {
     max-width: 520px;
     min-height: 400px;
 }

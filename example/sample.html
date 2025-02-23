@@ -32,6 +32,10 @@
     <div id="svg-scatter">
         <h2>Relationship between students achievement motivation and GPA</h2>
     </div>
+
+    <div id="svg-area">
+        <h2>Area Graph</h2>
+    </div>
     
 </body>
 
@@ -298,12 +302,39 @@
         }
 
 
+        const configArea = {
+            title: 'This is an area graph.',
+            description: 'Area chart showing some data trend over time.',
+            type: 'area',
+            data: [
+                { x: 0, y: 20 },
+                { x: 1, y: 50 },
+                { x: 2, y: 80 },
+                { x: 3, y: 60 },
+                { x: 4, y: 90 },
+                { x: 5, y: 40 }
+            ],
+            options: {
+                animation: true,
+                duration: 2,
+                yAxis: [0, 20, 40, 60, 80, 100],
+                xAxis: [0, 1, 2, 3, 4, 5],
+                fontSize: 1.2,
+                strikeWidth: 0.1,
+                innerColor: 'lightblue'
+            },
+            injection: '#svg-area'
+        };
+
+        
+        
         let accessibleP = new AccessibleSVG(configPie);
         let accessibleB = new AccessibleSVG(configBar);
         let accessibleS = new AccessibleSVG(configScatter);
         let accessibleL = new AccessibleSVG(configLine);
         let accessibleD = new AccessibleSVG(configDonut);
         let accessiblePro = new AccessibleSVG(configProgressBar);
+        let accessibleAr = new AccessibleSVG(configArea);
 
 
 </script>
